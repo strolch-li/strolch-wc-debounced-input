@@ -1,0 +1,30 @@
+{
+  "name": "strolch-wc-debounced-input",
+  "description": "Strolch WebComponent Badge",
+  "version": "0.1.0",
+  "authors": [
+    "Robert von Burg"
+  ],
+  "keywords": [
+    "strolch",
+    "input"
+  ],
+  "main": "strolch-wc-debounced-input.html",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:4treesCH/strolch-wc-debounced-input.git"
+  },
+  "license": "https://github.com/4treesCH/strolch-wc-debounced-input/blob/master/LICENSE",
+  "homepage": "https://github.com/4treesCH/strolch-wc-debounced-input",
+  "ignore": [],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.11.3",
+
+    "iron-icon": "PolymerElements/iron-icon#^1.0.13",
+    "iron-icons": "PolymerElements/iron-icons#^1.2.1",
+    "paper-input": "PolymerElements/paper-input#^1.2.1"
+  },
+  "devDependencies": {
+  }
+}

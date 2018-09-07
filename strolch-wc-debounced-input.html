@@ -1,0 +1,159 @@
+<!-- Components -->
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+
+<dom-module id="strolch-wc-debounced-input">
+    <template>
+        <!-- Style -->
+        <style is="custom-style">
+            :host {
+                --focus-color: white;
+                --regular-color: lightgrey;
+                --disabled-color: darkgrey;
+                display: block;
+            }
+
+            paper-input {
+                --paper-input-container-color: var(--regular-color);
+                --paper-input-container-focus-color: var(--focus-color);
+                --paper-input-container-input-color: var(--focus-color);
+                --paper-input-container-input: {
+                    font-size: 18px;
+                    padding: 4px;
+                };
+                --paper-input-container-underline-disabled: {
+                    border-bottom-style: solid;
+                }
+            }
+
+            paper-input::shadow input::-ms-clear {
+                display: none;
+                width: 0;
+                height: 0;
+            }
+
+            paper-input iron-icon {
+                padding: 4px;
+            }
+
+            paper-input:not([focused]) iron-icon {
+                color: var(--regular-color);
+            }
+
+            paper-input[focused] iron-icon {
+                color: var(--focus-color);
+            }
+
+            #clear {
+                cursor: pointer;
+            }
+        </style>
+
+        <!-- Content -->
+        <paper-input id="inputElement"
+                     no-label-float
+                     placeholder="[[placeholder]]"
+                     value="{{input}}"
+                     disabled$="[[disabled]]"
+                     on-focus="_onFocused"
+                     on-keyup="_onKeyUp"
+                     autofocus="[[autofocus]]">
+            <template is="dom-if" if="[[isEmptyString(input)]]">
+                <iron-icon suffix icon="[[suffixIcon]]"></iron-icon>
+            </template>
+            <template is="dom-if" if="[[!isEmptyString(input)]]">
+                <iron-icon suffix icon="clear" id="clear" on-tap="onClearTapped"></iron-icon>
+            </template>
+        </paper-input>
+    </template>
+
+    <script>
+        Polymer({
+            <!-- Settings -->
+            is: "strolch-wc-debounced-input",
+
+            <!-- Properties -->
+            properties: {
+                placeholder: {
+                    type: String,
+                    value: ""
+                },
+                input: {
+                    type: String,
+                    value: "",
+                    observer: "observeInput"
+                },
+                debouncedInput: {
+                    type: String,
+                    value: "",
+                    notify: true
+                },
+                prevDebouncedInput: {
+                    type: String,
+                    value: ""
+                },
+                suffixIcon: {
+                    type: String,
+                    value: "search"
+                },
+                disabled: {
+                    type: Boolean,
+                    value: false
+                }
+            },
+
+            <!-- Observers -->
+            observeInput: function (newValue, oldValue) {
+                this.debounce("inputDebounce", function () {
+                    // save the previous value so it may be reset
+                    this.set("prevDebouncedInput", this.debouncedInput);
+                    // set the debounced input after delay
+                    this.set("debouncedInput", newValue);
+                    this.fire('strolch-wc-debounced-input-changed', {
+                        input: newValue,
+                        enterPressed: false
+                    });
+                }, 500);
+            },
+
+            _onFocused: function (event) {
+                this.$.inputElement.inputElement.select()
+            },
+            _onKeyUp: function (event) {
+                // if enter was pressed
+                if (event.keyCode === 13) {
+                    this.debounce("inputDebounce", function () {
+                        // save the previous value so it may be reset
+                        this.set("prevDebouncedInput", this.debouncedInput);
+                        // set the debounced input after delay
+                        this.set("debouncedInput", this.input);
+                        this.fire('strolch-wc-debounced-input-changed', {
+                            input: this.input,
+                            enterPressed: true
+                        });
+                    }, 200);
+                }
+            },
+
+            <!-- Functions -->
+            onClearTapped: function (event) {
+                this.setInputTerm("");
+            },
+            undoLastInput: function () {
+                // apply the last debounced input
+                this.setInputTerm(this.prevDebouncedInput);
+            },
+            setInputTerm: function (inputTerm) {
+                this.set("input", inputTerm);
+            },
+            isEmptyString: function (string) {
+                return (!string || string.length == 0 || !string.trim());
+            },
+
+            focus: function () {
+                this.$.inputElement.focus();
+            }
+        });
+    </script>
+</dom-module>
