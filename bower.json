@@ -1,6 +1,6 @@
 {
   "name": "strolch-wc-debounced-input",
-  "description": "Strolch WebComponent Badge",
+  "description": "Strolch WebComponent Debounced Input",
   "version": "0.1.0",
   "authors": [
     "Robert von Burg"
