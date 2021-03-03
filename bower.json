@@ -1,7 +1,7 @@
 {
   "name": "strolch-wc-debounced-input",
   "description": "Strolch WebComponent Debounced Input",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "authors": [
     "Robert von Burg"
   ],
@@ -13,10 +13,10 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git@github.com:4treesCH/strolch-wc-debounced-input.git"
+    "url": "git@github.com:strolch-li/strolch-wc-debounced-input.git"
   },
-  "license": "https://github.com/4treesCH/strolch-wc-debounced-input/blob/master/LICENSE",
-  "homepage": "https://github.com/4treesCH/strolch-wc-debounced-input",
+  "license": "https://github.com/strolch-li/strolch-wc-debounced-input/blob/master/LICENSE",
+  "homepage": "https://github.com/strolch-li/strolch-wc-debounced-input",
   "ignore": [],
   "dependencies": {
     "polymer": "Polymer/polymer#^1.11.3",
