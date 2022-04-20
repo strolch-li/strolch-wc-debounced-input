@@ -106,14 +106,7 @@
             <!-- Observers -->
             observeInput: function (newValue, oldValue) {
                 this.debounce("inputDebounce", function () {
-                    // save the previous value so it may be reset
-                    this.set("prevDebouncedInput", this.debouncedInput);
-                    // set the debounced input after delay
-                    this.set("debouncedInput", newValue);
-                    this.fire('strolch-wc-debounced-input-changed', {
-                        input: newValue,
-                        enterPressed: false
-                    });
+                    this._setInput(newValue, false);
                 }, 500);
             },
 
@@ -124,21 +117,27 @@
                 // if enter was pressed
                 if (event.keyCode === 13) {
                     this.debounce("inputDebounce", function () {
-                        // save the previous value so it may be reset
-                        this.set("prevDebouncedInput", this.debouncedInput);
-                        // set the debounced input after delay
-                        this.set("debouncedInput", this.input);
-                        this.fire('strolch-wc-debounced-input-changed', {
-                            input: this.input,
-                            enterPressed: true
-                        });
+                        this._setInput(this.input, true);
                     }, 200);
                 }
             },
 
+            _setInput: function (newValue, enterPressed) {
+                // save the previous value so it may be reset
+                this.set("prevDebouncedInput", this.debouncedInput);
+                // set the debounced input after delay
+                this.set("debouncedInput", newValue);
+                this.fire('strolch-wc-debounced-input-changed', {
+                    input: newValue,
+                    enterPressed: enterPressed
+                });
+            },
+
             <!-- Functions -->
-            onClearTapped: function (event) {
+            onClearTapped: function () {
                 this.setInputTerm("");
+                this.cancelDebouncer("inputDebounce");
+                this._setInput("", false);
             },
             undoLastInput: function () {
                 // apply the last debounced input
