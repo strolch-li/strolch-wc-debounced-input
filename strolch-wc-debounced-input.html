@@ -12,6 +12,8 @@
                 --regular-color: lightgrey;
                 --disabled-color: darkgrey;
                 display: block;
+
+                --input-padding: 4px;
             }
 
             paper-input {
@@ -20,7 +22,7 @@
                 --paper-input-container-input-color: var(--focus-color);
                 --paper-input-container-input: {
                     font-size: 18px;
-                    padding: 4px;
+                    padding: var(--input-padding);
                 };
                 --paper-input-container-underline-disabled: {
                     border-bottom-style: solid;
@@ -52,7 +54,8 @@
 
         <!-- Content -->
         <paper-input id="inputElement"
-                     no-label-float
+                     label="[[label]]"
+                     no-label-float="[[noLabelFloat]]"
                      placeholder="[[placeholder]]"
                      value="{{input}}"
                      disabled$="[[disabled]]"
@@ -96,6 +99,13 @@
                 suffixIcon: {
                     type: String,
                     value: "search"
+                },
+                label: {
+                    type: String
+                },
+                noLabelFloat: {
+                    type: Boolean,
+                    value: true
                 },
                 disabled: {
                     type: Boolean,
