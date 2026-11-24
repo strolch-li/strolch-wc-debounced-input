@@ -1,7 +1,7 @@
 {
   "name": "strolch-wc-debounced-input",
   "description": "Strolch WebComponent Debounced Input",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "authors": [
     "Robert von Burg"
   ],
@@ -19,11 +19,11 @@
   "homepage": "https://github.com/strolch-li/strolch-wc-debounced-input",
   "ignore": [],
   "dependencies": {
-    "polymer": "Polymer/polymer#^1.12.0",
+    "polymer": "git@github.com:Polymer/polymer#1.12.0",
 
-    "iron-icon": "PolymerElements/iron-icon#^1.0.13",
-    "iron-icons": "PolymerElements/iron-icons#^1.2.1",
-    "paper-input": "PolymerElements/paper-input#^1.2.1"
+    "iron-icon": "git@github.com:PolymerElements/iron-icon#1.0.13",
+    "iron-icons": "git@github.com:PolymerElements/iron-icons#1.2.1",
+    "paper-input": "git@github.com:PolymerElements/paper-input#1.2.1"
   },
   "devDependencies": {}
 }
